@@ -5,6 +5,10 @@ const taskList = document.querySelector('.collection');
 const clearBtn = document.querySelector('.clear-tasks ');
 const filter = document.querySelector('#filter');
 const taskInput = document.querySelector('#task');
+var taskNumber = 0
+var taskAdded = document.getElementById('addTask');
+var tasks = (taskNumber < 2) ? "task" : "tasks";
+
 
 // Load all event listeners
 loadEventListeners();
@@ -80,12 +84,29 @@ function addTask(e) {
 
   // Append li to ul
   taskList.appendChild(li);
+  
+  
+  
+
+  
+  // Keeps count of how many tasks has been added
+   if ( taskList.contains(li)) {
+    for (var i = 0; i < taskList.childElementCount; i++){
+     taskNumber = i + 1;
+      taskAdded.innerText = `You have added ${taskNumber} task`; 
+      if (taskNumber > 1){
+        taskAdded.innerText = `You have added ${taskNumber} tasks`;
+      }
+    }
+  } 
 
   // Store in LS
   storeTaskInLocalStorage(taskInput.value);
 
   // Clear input
   taskInput.value = '';
+  
+  
 
     e.preventDefault();
 
@@ -112,13 +133,21 @@ function removeTask(e) {
   if (e.target.parentElement.classList.contains('delete-item')) {
     if (confirm('Are You Sure?')) {
       e.target.parentElement.parentElement.remove();
-
+      
       // Remove from LS
       removeTaskFromLocalStorage(e.target.parentElement.parentElement);
+      
+      // reduces the count of tasks added
+     if (taskNumber <= 2) {
+      taskNumber -= 1;
+      taskAdded.innerText = `You have added ${taskNumber} task`;
+      } else {
+      taskNumber -= 1;
+      taskAdded.innerText = `You have added ${taskNumber} tasks`;
+      }
     }
   }
 }
-
 // Remove from LS
 function removeTaskFromLocalStorage(taskItem) {
   let tasks;
@@ -143,6 +172,10 @@ function clearTasks() {
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
   }
+  
+  // Number of tasks added shows default value
+  taskNumber = 0;
+  taskAdded.innerText = `You have added ${taskNumber} task`;
 
 
   // Clear from LS
