@@ -168,10 +168,7 @@ function removeTaskFromLocalStorage(taskItem) {
 
 // Clear Tasks
 function clearTasks() {
-<<<<<<< HEAD
-  
-=======
->>>>>>> 20d444b1558542c7e059f6fc613dd512148721f2
+
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
   }
@@ -180,10 +177,7 @@ function clearTasks() {
   taskNumber = 0;
   taskAdded.innerText = `You have added ${taskNumber} task`;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 20d444b1558542c7e059f6fc613dd512148721f2
 
   // Clear from LS
   clearTasksFromLocalStorage();
